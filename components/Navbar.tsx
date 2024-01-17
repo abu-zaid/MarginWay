@@ -25,7 +25,7 @@ const Navbar = () => {
                     <Image src="/assets/icons/logo.svg"
                         width={27} height={27} alt='logo' />
                     <p className='nav-logo'>
-                        Price<span className='text-primary'>Wise</span>
+                        Margin<span className='text-primary'>Way</span>
                     </p>
                 </Link>
                 <div className='flex item-center gap-5'>
