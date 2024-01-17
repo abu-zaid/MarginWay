@@ -16,7 +16,7 @@ export const revalidate =0;
 export async function GET() {
   try {
     connectToDatabase();
-    const products = await getAllProducts();
+    const products = await Product.find();
     if (!products) throw new Error("No products");
 
     //scrape latest products and update db
