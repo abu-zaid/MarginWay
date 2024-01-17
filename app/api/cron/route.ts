@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
-import { getLowestPrice, getHighestPrice, getAveragePrice, getEmailNotifType } from "@/lib/utils";
-import { connectToDB } from "@/lib/mongoose";
+import { getLowestPrice, getHighestPrice, getAveragePrice, getEmailNotifType } from "@/lib/util";
+import { connectToDatabase } from "@/lib/mongoose";
 import Product from "@/lib/models/product.model";
-import { scrapeAmazonProduct } from "@/lib/scraper";
+import { scrapeProduct } from "@/lib/scraper";
 import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
 
 export const maxDuration = 300; // This function can run for a maximum of 300 seconds
@@ -12,7 +12,7 @@ export const revalidate = 0;
 
 export async function GET(request: Request) {
   try {
-    connectToDB();
+    connectToDatabase();
 
     const products = await Product.find({});
 
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     const updatedProducts = await Promise.all(
       products.map(async (currentProduct) => {
         // Scrape product
-        const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+        const scrapedProduct = await scrapeProduct(currentProduct.url);
 
         if (!scrapedProduct) return;
 
