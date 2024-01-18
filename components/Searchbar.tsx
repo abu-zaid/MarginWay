@@ -55,11 +55,11 @@ const Searchbar = () => {
       />
       <button
         type="submit"
-        className="searchbar-btn"
+        className="bg-black text-white-100 px-5 w-32 rounded-md"
         disabled={searchPrompt === ""}
       >
         {isLoading ? (
-          <BarLoader loading={isLoading} width="7rem" color="white" />
+          <BarLoader loading={isLoading} color="white" width={90}/>
         ) : (
           "Search"
         )}
