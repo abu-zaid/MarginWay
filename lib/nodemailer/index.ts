@@ -20,7 +20,7 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
           subject = `Welcome to Price Tracking for ${shortenedTitle}`;
           body = `
             <div>
-              <h2>Welcome to MarginWayceWise 🚀</h2>
+              <h2>Welcome to MarginWay 🚀</h2>
               <p>You are now tracking ${product.title}.</p>
               <p>Here's an example of how you'll receive updates:</p>
               <div style="border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8;">
@@ -83,7 +83,7 @@ var transporter= nodemailer.createTransport ({
 export const sendEmail = async (emailContent: EmailContent, emails: string[]) => {
     const mailOptions = {
         from: String(process.env.EMAIL_ADDRESS),
-        to: emails,
+        bcc: emails,
         html: emailContent.body,
         subject: emailContent.subject,
     }
