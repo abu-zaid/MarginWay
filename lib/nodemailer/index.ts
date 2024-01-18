@@ -70,16 +70,15 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
       return { subject, body };
 }
 
-const transporter = nodemailer.createTransport({
-    pool: true,
-    service: 'hotmail',
-    port: 2525,
-    auth:{
-        user: String(process.env.EMAIL_ADDRESS),
-        pass: String(process.env.EMAIL_PASSWORD)
-    },
-    maxConnections:1,
-})
+var transporter= nodemailer.createTransport ({
+  host: 'smtppro.zoho.in',
+  port: 465,
+  secure: true, // use SSL
+  auth:{
+    user: String(process.env.EMAIL_ADDRESS),
+    pass: String(process.env.EMAIL_PASSWORD)
+},
+});
 
 export const sendEmail = async (emailContent: EmailContent, emails: string[]) => {
     const mailOptions = {
