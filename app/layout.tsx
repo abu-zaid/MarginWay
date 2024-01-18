@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import { Analytics } from '@vercel/analytics/react';
+
 
 const inter = Inter({ subsets: ['latin'] })
 const space_grotest = Space_Grotesk({
@@ -25,6 +27,7 @@ export default function RootLayout({
         <main className='max-w-10xl mx-auto'>
           <Navbar />
           {children}
+          <Analytics />
         </main>
       </body>
     </html>
