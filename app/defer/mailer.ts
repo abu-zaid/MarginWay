@@ -20,6 +20,7 @@ async function sendEmail(emailContent: EmailContent, emails: string[]) {
       pass: String(process.env.EMAIL_PASSWORD),
     },
   });
+  console.log('Transporter' , transporter)
   transporter.sendMail(mailOptions, (error: any, info: any) => {
     if (error) return console.log(error);
 
