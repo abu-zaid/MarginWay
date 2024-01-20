@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // we import our `helloWorld()` background function
-import helloWorld from "../defer/helloWorld";
+import helloWorld from "../../defer/helloWorld";
 
 type Data = {
   ok: boolean;
