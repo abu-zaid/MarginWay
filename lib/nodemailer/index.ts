@@ -69,28 +69,3 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
       }
       return { subject, body };
 }
-
-var transporter= nodemailer.createTransport ({
-  host: 'smtppro.zoho.in',
-  port: 465,
-  secure: true, // use SSL
-  auth:{
-    user: String(process.env.EMAIL_ADDRESS),
-    pass: String(process.env.EMAIL_PASSWORD)
-},
-});
-
-export const sendEmail = async (emailContent: EmailContent, emails: string[]) => {
-    const mailOptions = {
-        from: String(process.env.EMAIL_ADDRESS),
-        bcc: emails,
-        html: emailContent.body,
-        subject: emailContent.subject,
-    }
-    console.log("Inside send email function");
-    transporter.sendMail(mailOptions, (error: any, info: any) => {
-        if(error) return console.log(error);
-        
-        console.log('Email sent: ', info);
-      })
-}

@@ -5,10 +5,10 @@ import Product from "../models/product.model";
 import { connectToDatabase } from "../mongoose";
 import { scrapeProduct } from "../scraper";
 import { EmailContent, User } from "@/types";
-// import { generateEmailBody, sendEmail } from "../nodemailer";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../util";
 import { redirect } from "next/navigation";
-import { generateEmailBody, sendEmail } from "../nodemailer";
+import { generateEmailBody } from "../nodemailer";
+import { sendEmail } from "@/app/defer/mailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
   if(!productUrl) return;

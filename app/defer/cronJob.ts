@@ -1,10 +1,11 @@
 // the `defer()` helper will be used to define a background function
 import Product from "@/lib/models/product.model";
 import { connectToDatabase } from "@/lib/mongoose";
-import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
+import { generateEmailBody } from "@/lib/nodemailer";
 import { scrapeProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/util";
 import { defer } from "@defer/client";
+import { sendEmail } from "./mailer";
 
 // a background function must be `async`
 async function cronJob() {
