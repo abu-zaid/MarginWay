@@ -72,6 +72,7 @@ export function getHighestPrice(priceList: PriceHistoryItem[]) {
 }
 
 export function getLowestPrice(priceList: PriceHistoryItem[]) {
+  console.log('priceHistory in getLowestPrice',priceList)
   let lowestPrice = priceList[0];
 
   for (let i = 0; i < priceList.length; i++) {
@@ -79,6 +80,7 @@ export function getLowestPrice(priceList: PriceHistoryItem[]) {
       lowestPrice = priceList[i];
     }
   }
+  console.log('lowestPrice in getLowestPrice',lowestPrice.price)
 
   return lowestPrice.price ? lowestPrice.price : priceList[0].price;
 }
@@ -94,6 +96,8 @@ export const getEmailNotifType = (
   scrapedProduct: Product,
   currentProduct: Product
 ) => {
+
+  console.log('currentProduct.priceHistory in getEmailNotifType', currentProduct.priceHistory)
   const lowestPrice = getLowestPrice(currentProduct.priceHistory);
 
   if (scrapedProduct.currentPrice < lowestPrice) {
