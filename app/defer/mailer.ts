@@ -12,6 +12,8 @@ var transporter = nodemailer.createTransport ({
   },
   });
   async function sendEmail(emailContent: EmailContent, emails: string[]) {
+    console.log('Inside sendEmail');
+    console.log('Emails list:',emails);
       const mailOptions = {
           from: String(process.env.EMAIL_ADDRESS),
           bcc: emails,
