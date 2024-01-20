@@ -5,7 +5,7 @@ import { generateEmailBody } from "@/lib/nodemailer";
 import { scrapeProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/util";
 import { defer } from "@defer/client";
-import { sendEmail } from "./mailer";
+import sendEmail from "@/app/defer/mailer";
 
 // a background function must be `async`
 async function cronJob() {
@@ -20,6 +20,7 @@ async function cronJob() {
         const updatedProducts = await Promise.all(
           products.map(async (currentProduct) => {
             // Scrape product
+            console.log('Current product in cron',currentProduct)
             const scrapedProduct = await scrapeProduct(currentProduct.url);
     
             if (!scrapedProduct) return;

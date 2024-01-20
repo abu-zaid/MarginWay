@@ -11,8 +11,7 @@ var transporter = nodemailer.createTransport ({
       pass: String(process.env.EMAIL_PASSWORD)
   },
   });
-  
-  export const sendEmail = async (emailContent: EmailContent, emails: string[]) => {
+  async function sendEmail(emailContent: EmailContent, emails: string[]) {
       const mailOptions = {
           from: String(process.env.EMAIL_ADDRESS),
           bcc: emails,

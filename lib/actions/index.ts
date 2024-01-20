@@ -8,7 +8,7 @@ import { EmailContent, User } from "@/types";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../util";
 import { redirect } from "next/navigation";
 import { generateEmailBody } from "../nodemailer";
-import { sendEmail } from "@/app/defer/mailer";
+import sendEmail from "@/app/defer/mailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
   if(!productUrl) return;
