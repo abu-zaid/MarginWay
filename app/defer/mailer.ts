@@ -1,5 +1,4 @@
 import { EmailContent } from "@/types";
-import nodemailer from "nodemailer";
 import { defer } from "@defer/client";
 
 async function sendEmail(emailContent: EmailContent, emails: string[]) {
@@ -11,6 +10,7 @@ async function sendEmail(emailContent: EmailContent, emails: string[]) {
     html: emailContent.body,
     subject: emailContent.subject,
   };
+  var nodemailer = require('nodemailer');
   var transporter = nodemailer.createTransport({
     host: "smtppro.zoho.in",
     port: 465,
@@ -20,12 +20,8 @@ async function sendEmail(emailContent: EmailContent, emails: string[]) {
       pass: String(process.env.EMAIL_PASSWORD),
     },
   });
-  console.log('Transporter' , transporter)
-  transporter.sendMail(mailOptions, (error: any, info: any) => {
-    if (error) return console.log(error);
-
-    console.log("Email sent: ", info);
-  });
+  const info = await transporter.sendMail(mailOptions);
+  console.log('Email sent Successfully' + info.response);
 }
 
 export default defer(sendEmail);
