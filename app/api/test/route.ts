@@ -1,17 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // we import our `helloWorld()` background function
-import helloWorld from "../../defer/helloWorld";
+import helloWorld from "../../defer/helloWorld"
 
-type Data = {
-  ok: boolean;
-};
+import { NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  // calling a background function triggers an execution on Defer Platform
-  await helloWorld("Charly");
+export async function GET(request: Request) {
+  try {
 
-  res.status(200).json({ ok: true });
+    await helloWorld("Charly");
+
+    return NextResponse.json({
+      message: "Ok",
+    });
+  } catch (error: any) {
+    throw new Error(`Failed to run test: ${error.message}`);
+  }
 }
