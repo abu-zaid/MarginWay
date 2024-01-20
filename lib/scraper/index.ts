@@ -60,8 +60,8 @@ export async function scrapeProduct(url: string) {
     const data = {
       url,
       title,
-      currentPrice: Number(currentPrice) || Number(originalPrice),
-      originalPrice: Number(originalPrice) || Number(currentPrice),
+      currentPrice: Number(currentPrice),
+      originalPrice: Number(originalPrice),
       outOfStock,
       currency,
       image: imageUrls[0],
@@ -72,10 +72,10 @@ export async function scrapeProduct(url: string) {
       rating: 0,
       isOutOfStock: outOfStock,
       description,
-      stars:0,
-      lowestPrice: Number(currentPrice) || Number(originalPrice),
-      highestPrice: Number(originalPrice) || Number(currentPrice),
-      averagePrice: Number(currentPrice) || Number(originalPrice),
+      stars: 0,
+      lowestPrice: Number(currentPrice),
+      highestPrice: Number(originalPrice),
+      averagePrice: Number(currentPrice),
     };
 
     return data;
