@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@defer/client": "^1.15.0",
     "@headlessui/react": "^1.7.18",
     "@vercel/analytics": "^1.1.2",
     "axios": "^1.6.5",
