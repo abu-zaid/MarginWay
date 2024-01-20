@@ -25,9 +25,9 @@ const Home = async () => {
               Unleash the power of{" "}
               <span className="text-primary">MarginWay</span>
             </h1>
-            <p className="mt-6 ">
-              Powerful, self-serve product and growth analytics to help you
-              convert, engage, and retain more.
+            <p className="mt-6">
+              Your personal price tracker. Monitor prices, get alerts, and save
+              big on online shopping.
             </p>
 
             <Searchbar />
@@ -39,9 +39,12 @@ const Home = async () => {
       <section className="trending-section">
         <h2 className="section-text">Trending</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {allProducts?.reverse().slice(0, 5).map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {allProducts
+            ?.reverse()
+            .slice(0, 5)
+            .map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
         </div>
       </section>
     </>
