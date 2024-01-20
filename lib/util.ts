@@ -68,7 +68,6 @@ export function getHighestPrice(priceList: PriceHistoryItem[]) {
       highestPrice = priceList[i];
     }
   }
-
   return highestPrice.price;
 }
 
@@ -81,7 +80,7 @@ export function getLowestPrice(priceList: PriceHistoryItem[]) {
     }
   }
 
-  return lowestPrice.price;
+  return lowestPrice.price || priceList[0].price;
 }
 
 export function getAveragePrice(priceList: PriceHistoryItem[]) {
