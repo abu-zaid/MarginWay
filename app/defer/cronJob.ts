@@ -8,7 +8,7 @@ import { defer } from "@defer/client";
 
 // a background function must be `async`
 async function cronJob() {
-    connectToDatabase();
+    await connectToDatabase();
 
     const products = await Product.find({});
 
