@@ -2,6 +2,7 @@
 import Product from "@/lib/models/product.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
+import { scrapeProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/util";
 import { defer } from "@defer/client";
 
