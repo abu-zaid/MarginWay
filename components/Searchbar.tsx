@@ -12,6 +12,8 @@ const isValidLink = (url: string) => {
     const hostName = parsedUrl.hostname;
     if (hostName.includes("amazon.") || hostName.includes("amazon.")) {
       return true;
+    } else if (hostName.includes("myntra.") || hostName.includes("myntra.com")) {
+      return true;
     }
   } catch (error) {
     return false;
@@ -22,8 +24,7 @@ const isValidLink = (url: string) => {
 const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
-
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,24 +43,23 @@ const Searchbar = () => {
     }
 
     router.push(`/products/${product_id}`);
-
   };
   return (
-    <form className="flex -flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
+    <form className="flex -flex-wrap mt-12" onSubmit={handleSubmit}>
       <input
         type="text"
         value={searchPrompt}
         onChange={(e) => setSearchPrompt(e.target.value)}
-        placeholder="Enter Product Link"
-        className="searchbar-input"
+        placeholder="Enter Product Link..."
+        className="searchbar"
       />
       <button
         type="submit"
-        className="bg-black text-white-100 px-5 w-32 rounded-md"
+        className="search-btn"
         disabled={searchPrompt === ""}
       >
         {isLoading ? (
-          <BarLoader loading={isLoading} color="white" width={90}/>
+          <BarLoader loading={isLoading} color="white" width={90} />
         ) : (
           "Search"
         )}
