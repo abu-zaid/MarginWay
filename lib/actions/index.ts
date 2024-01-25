@@ -98,7 +98,7 @@ export async function findProducts(productTitle: string) {
   } catch (error) {
     console.log(error);
   }
-  return '';
+  return "";
 }
 
 export async function getSimilarProducts(productId: string) {
@@ -121,26 +121,41 @@ export async function getSimilarProducts(productId: string) {
 
 export async function addUserEmailToProduct(
   productId: string,
-  userEmail: string
+  userEmail: string,
+  thresholdAmount: number | null = null
 ) {
+  if (thresholdAmount === null) thresholdAmount = 0;
   try {
+    // Find the product by its ID
     const product = await Product.findById(productId);
 
     if (!product) return;
 
-    const userExists = product.users.some(
-      (user: User) => user.email === userEmail
+    // Check if the user already exists in the product's users array
+    const userExistsIndex = product.users.findIndex(
+      (user: any) => user.email === userEmail
     );
 
-    if (!userExists) {
-      product.users.push({ email: userEmail });
+    // If the user exists, update their threshold amount
+    if (userExistsIndex !== -1) {
+      product.users[userExistsIndex].thresholdAmount = thresholdAmount;
+    } else {
+      // If the user doesn't exist, create a new user object
+      const newUser = {
+        email: userEmail,
+        thresholdAmount: thresholdAmount,
+      };
 
-      await product.save();
-
-      const emailContent = await generateEmailBody(product, "WELCOME");
-
-      await sendEmail(emailContent, [userEmail]);
+      // Push the new user object to the users array
+      product.users.push(newUser);
     }
+
+    // Save the updated product document
+    await product.save();
+
+    // Optionally, send an email to the user
+    const emailContent = await generateEmailBody(product, "WELCOME");
+    await sendEmail(emailContent, [userEmail]);
   } catch (error) {
     console.log(error);
   }

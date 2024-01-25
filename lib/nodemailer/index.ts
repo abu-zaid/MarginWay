@@ -10,7 +10,7 @@ export const Notification = {
     THRESHOLD_MET: 'THRESHOLD_MET',
 }
 
-export const generateEmailBody = (product : EmailProductInfo, type: NotificationType) => {
+export const generateEmailBody = (product : EmailProductInfo, type: NotificationType ,thresholdAmount: number | null = null) => {
     const shortenedTitle = product.title.length > 20 ? `${product.title.substring(0,20)}...` : product.title;
     let subject = '';
     let body = '';
@@ -22,6 +22,7 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
             <div>
               <h2>Welcome to MarginWay 🚀</h2>
               <p>You are now tracking ${product.title}.</p>
+              <img src=${product.image} alt=${product.title} style="max-width: 100%;" />
               <p>Here's an example of how you'll receive updates:</p>
               <div style="border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8;">
                 <h3>${product.title} is back in stock!</h3>
@@ -54,15 +55,16 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
           `;
           break;
     
-        case Notification.THRESHOLD_MET:
-          subject = `Discount Alert for ${shortenedTitle}`;
-          body = `
-            <div>
-              <h4>Hey, ${product.title} is now available at a discount more than ${THRESHOLD_PERCENTAGE}%!</h4>
-              <p>Grab it right away from <a href="${product.url}" target="_blank" rel="noopener noreferrer">here</a>.</p>
-            </div>
-          `;
-          break;
+          case Notification.THRESHOLD_MET:
+            subject = `Threshold Alert for ${shortenedTitle}`;
+            body = `
+              <div>
+                <h4>Hey, ${product.title} is now available at  ${thresholdAmount}!</h4>
+                <p>Grab it right away from <a href="${product.url}" target="_blank" rel="noopener noreferrer">here</a>.</p>
+                <img src=${product.image} alt=${product.title} style="max-width: 100%;" />
+              </div>
+            `;
+            break;
     
         default:
           throw new Error("Invalid notification type.");

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./user.model";
 
 const productSchema = new mongoose.Schema(
   {
@@ -22,16 +23,13 @@ const productSchema = new mongoose.Schema(
     description: { type: "String" },
     category: { type: "String" },
     reviewsCount: { type: "Number" },
-    users: [
-      {
-        email: { type: "String", required: true },
-      },
-    ],
+    users: [User.schema],
     default: [],
   },
   { timestamps: true }
 );
 
-const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
+const Product =
+  mongoose.models.Product || mongoose.model("Product", productSchema);
 
 export default Product;

@@ -95,22 +95,33 @@ export const getEmailNotifType = (
   scrapedProduct: Product,
   currentProduct: Product
 ) => {
-
-  console.log('currentProduct.priceHistory in getEmailNotifType', currentProduct.priceHistory)
   const lowestPrice = getLowestPrice(currentProduct.priceHistory);
 
+  // Check if scrapedProduct.users is defined and not null
+  if (scrapedProduct.users) {
+    // Iterate through each user in the scrapedProduct
+    for (const user of scrapedProduct.users) {
+      const userThreshold = user.tresholdAmount;
+
+      // Check if the current price is lower than the user's threshold
+      if (scrapedProduct.currentPrice < userThreshold) {
+        return Notification.THRESHOLD_MET as keyof typeof Notification;
+      }
+    }
+  }
+
+  // If no user's threshold is met, check for other notification types
   if (scrapedProduct.currentPrice < lowestPrice) {
     return Notification.LOWEST_PRICE as keyof typeof Notification;
   }
   if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
     return Notification.CHANGE_OF_STOCK as keyof typeof Notification;
   }
-  if (scrapedProduct.discountRate >= THRESHOLD_PERCENTAGE) {
-    return Notification.THRESHOLD_MET as keyof typeof Notification;
-  }
 
   return null;
 };
+
+
 
 export const formatNumber = (num: number = 0) => {
   return num.toLocaleString(undefined, {

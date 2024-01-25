@@ -61,14 +61,15 @@ async function cronJob() {
         );
 
         // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
-        if (currentProduct.priceHistory.length > 0) {
-          const emailNotifType = getEmailNotifType(
-            scrapedProduct,
-            currentProduct
-          );
+          if (currentProduct.priceHistory.length > 0) {
+            const emailNotifType = getEmailNotifType(
+              scrapedProduct,
+              currentProduct
+            );
 
           if (emailNotifType && updatedProduct.users.length > 0) {
             const productInfo = {
+              image: updatedProduct.image,
               title: updatedProduct.title,
               url: updatedProduct.url,
             };

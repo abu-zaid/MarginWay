@@ -4,6 +4,7 @@ export type PriceHistoryItem = {
   
   export type User = {
     email: string;
+    tresholdAmount: number;
   };
   
   export type Product = {
@@ -40,5 +41,6 @@ export type PriceHistoryItem = {
   
   export type EmailProductInfo = {
     title: string;
+    image: string;
     url: string;
   };

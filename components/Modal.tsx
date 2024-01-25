@@ -14,12 +14,13 @@ const Modal = ({ productId }: Props) => {
   let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
+  const [thresholdAmount, setThresholdAmount] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await addUserEmailToProduct(productId, email);
+    await addUserEmailToProduct(productId, email, parseInt(thresholdAmount));
 
     setIsSubmitting(false);
     setEmail("");
@@ -97,13 +98,23 @@ const Modal = ({ productId }: Props) => {
                   </p>
                 </div>
 
-                <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
+                <form className="flex flex-col mt-2" onSubmit={handleSubmit}>
+                  <div className="dialog-input_container">
+                    <Image
+                      src="/assets/icons/money-alert.svg"
+                      alt="mail"
+                      width={18}
+                      height={18}
+                    />
+                    <input
+                      type="number"
+                      id="thresholdAmount"
+                      value={thresholdAmount}
+                      onChange={(e) => setThresholdAmount(e.target.value)}
+                      placeholder="Enter price for alert"
+                      className="dialog-input text-[16px]"
+                    />
+                  </div>
                   <div className="dialog-input_container">
                     <Image
                       src="/assets/icons/mail.svg"
@@ -111,7 +122,6 @@ const Modal = ({ productId }: Props) => {
                       width={18}
                       height={18}
                     />
-
                     <input
                       required
                       type="email"

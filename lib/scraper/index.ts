@@ -67,7 +67,7 @@ export async function scrapeProduct(url: string) {
       image: imageUrls[0],
       priceHistory: [],
       discountRate: Number(discountRate),
-      category: "category",
+      category: "Category",
       reviewsCount: 0,
       rating: 0,
       isOutOfStock: outOfStock,
