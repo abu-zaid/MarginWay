@@ -22,14 +22,14 @@ const ProductCard = ({ product }: Props) => {
         <h3 className="product-title">{product.title}</h3>
         <div className="flex justify-between">
           <p className="text-black opacity-50 capitalize">{product.category}</p>
-          {!product.isOutOfStock && (
+          {!product.isOutOfStock && product.currentPrice != 0 && (
             <p className="text-black text-lg font-semibold">
               <span>{product.currency}</span>
               <span>{product.currentPrice}</span>
             </p>
           )}
-          {product.isOutOfStock && (
-            <p className="text-black text-lg font-semibold">
+          {(product.isOutOfStock || product.currentPrice === 0) && (
+            <p className="text-red-500 text-lg font-semibold">
               <span>Out Of Stock!</span>
             </p>
           )}

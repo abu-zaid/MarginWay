@@ -26,7 +26,7 @@ const SearchCard = ({ product }: Props) => {
               </h3>
               <p className="text-sm text-gray-400">{product.category}</p>
             </div>
-            {!product.isOutOfStock && (
+            {(!product.isOutOfStock && product.currentPrice != 0) && (
               <div className="flex gap-2 items-baseline justify-end">
                 <p className="line-through text-sm text-red-500">
                   <span>{product.currency}</span>
@@ -38,7 +38,7 @@ const SearchCard = ({ product }: Props) => {
                 </p>
               </div>
             )}
-            {product.isOutOfStock && (
+            {(product.isOutOfStock || product.currentPrice === 0)  && (
               <div className="flex gap-2 items-baseline justify-end">
                 <p className="text-red-500 text-sm">
                   Out Of stock

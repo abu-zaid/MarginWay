@@ -85,7 +85,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           </div>
 
           <div className="product-info">
-            {!product.isOutOfStock && (
+            {!product.isOutOfStock && product.currentPrice !== 0 && (
               <div className="flex flex-col gap-2">
                 <p className="text-[34px] text-secondary font-bold">
                   {product.currency} {product.currentPrice}
@@ -95,7 +95,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 </p>
               </div>
             )}
-            {product.isOutOfStock && (
+            {(product.isOutOfStock || product.currentPrice === 0) && (
               <div className="flex flex-col gap-2">
                 <p className="text-[34px] text-red-500 font-bold">
                   Out of stock!
@@ -143,7 +143,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 title="Current Price"
                 iconSrc="/assets/icons/price-tag.svg"
                 value={
-                  !product.isOutOfStock
+                  !product.isOutOfStock && product.currentPrice != 0
                     ? `${product.currency} ${formatNumber(
                         product.currentPrice
                       )}`
@@ -153,23 +153,33 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <PriceInfoCard
                 title="Average Price"
                 iconSrc="/assets/icons/chart.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.averagePrice
-                )}`}
+                value={
+                  !product.isOutOfStock && product.currentPrice != 0
+                    ? `${product.currency} ${formatNumber(
+                        product.averagePrice
+                      )}`
+                    : "-"
+                }
               />
               <PriceInfoCard
                 title="Highest Price"
                 iconSrc="/assets/icons/arrow-up.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.highestPrice
-                )}`}
+                value={
+                  !product.isOutOfStock && product.currentPrice != 0
+                    ? `${product.currency} ${formatNumber(
+                        product.highestPrice
+                      )}`
+                    : "-"
+                }
               />
               <PriceInfoCard
                 title="Lowest Price"
                 iconSrc="/assets/icons/arrow-down.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.lowestPrice
-                )}`}
+                value={
+                  !product.isOutOfStock && product.currentPrice != 0
+                    ? `${product.currency} ${formatNumber(product.lowestPrice)}`
+                    : "-"
+                }
               />
             </div>
           </div>
