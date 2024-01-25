@@ -59,7 +59,7 @@ export const generateEmailBody = (product : EmailProductInfo, type: Notification
             subject = `Threshold Alert for ${shortenedTitle}`;
             body = `
               <div>
-                <h4>Hey, ${product.title} is now available at  ${thresholdAmount}!</h4>
+                <h4>Hey, ${product.title} is now available below ${thresholdAmount}!</h4>
                 <p>Grab it right away from <a href="${product.url}" target="_blank" rel="noopener noreferrer">here</a>.</p>
                 <img src=${product.image} alt=${product.title} style="max-width: 100%;" />
               </div>
