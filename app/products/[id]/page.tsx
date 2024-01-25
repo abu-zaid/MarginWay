@@ -85,14 +85,23 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           </div>
 
           <div className="product-info">
-            <div className="flex flex-col gap-2">
-              <p className="text-[34px] text-secondary font-bold">
-                {product.currency} {product.currentPrice}
-              </p>
-              <p className="text-[21px] text-black opacity-50 line-through">
-                {product.currency} {product.originalPrice}
-              </p>
-            </div>
+            {!product.isOutOfStock && (
+              <div className="flex flex-col gap-2">
+                <p className="text-[34px] text-secondary font-bold">
+                  {product.currency} {product.currentPrice}
+                </p>
+                <p className="text-[21px] text-black opacity-50 line-through">
+                  {product.currency} {product.originalPrice}
+                </p>
+              </div>
+            )}
+            {product.isOutOfStock && (
+              <div className="flex flex-col gap-2">
+                <p className="text-[34px] text-red-500 font-bold">
+                  Out of stock!
+                </p>
+              </div>
+            )}
 
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
@@ -133,9 +142,13 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <PriceInfoCard
                 title="Current Price"
                 iconSrc="/assets/icons/price-tag.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.currentPrice
-                )}`}
+                value={
+                  !product.isOutOfStock
+                    ? `${product.currency} ${formatNumber(
+                        product.currentPrice
+                      )}`
+                    : "-"
+                }
               />
               <PriceInfoCard
                 title="Average Price"
@@ -195,9 +208,11 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <p className="section-text">Similar Products</p>
 
           <div className="flex flex-wrap gap-10 mt-7 w-full">
-            {similarProducts.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            )).reverse()}
+            {similarProducts
+              .map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))
+              .reverse()}
           </div>
         </div>
       )}

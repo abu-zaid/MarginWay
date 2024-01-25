@@ -26,16 +26,25 @@ const SearchCard = ({ product }: Props) => {
               </h3>
               <p className="text-sm text-gray-400">{product.category}</p>
             </div>
-            <div className="flex gap-2 items-baseline justify-end">
-              <p className="line-through text-sm text-red-500">
-                <span>{product.currency}</span>
-                {product.originalPrice.toString().slice(0, 7)}
-              </p>
-              <p>
-                <span>{product.currency}</span>
-                {product.currentPrice}
-              </p>
-            </div>
+            {!product.isOutOfStock && (
+              <div className="flex gap-2 items-baseline justify-end">
+                <p className="line-through text-sm text-red-500">
+                  <span>{product.currency}</span>
+                  {product.originalPrice.toString().slice(0, 7)}
+                </p>
+                <p>
+                  <span>{product.currency}</span>
+                  {product.currentPrice}
+                </p>
+              </div>
+            )}
+            {product.isOutOfStock && (
+              <div className="flex gap-2 items-baseline justify-end">
+                <p className="text-red-500 text-sm">
+                  Out Of stock
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
