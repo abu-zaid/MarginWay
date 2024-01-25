@@ -119,7 +119,7 @@ const Modal = ({ productId }: Props) => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email address"
-                      className="dialog-input"
+                      className="dialog-input text-[16px]"
                     />
                   </div>
 

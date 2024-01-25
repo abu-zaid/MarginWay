@@ -48,7 +48,7 @@ const search = () => {
             className="flex -flex-wrap mt-10 justify-center"
           >
             <input
-              className="searchbar"
+              className="searchbar text-[16px]"
               type="text"
               value={searchPrompt}
               onChange={(e) => setSearchPrompt(e.target.value)}
