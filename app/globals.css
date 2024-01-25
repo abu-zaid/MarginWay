@@ -126,7 +126,7 @@
   }
 
   .nav-logo {
-    @apply font-spaceGrotesk text-[21px] text-secondary font-bold;
+    @apply font-poppins text-[21px] text-secondary font-bold;
   }
 
   /* PRICE INFO */
