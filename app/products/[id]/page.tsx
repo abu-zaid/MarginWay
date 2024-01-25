@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
 import { formatNumber } from "@/lib/util";
 import { Product } from "@/types";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -14,6 +15,20 @@ type Props = {
   params: { id: string };
 };
 
+export async function generateMetadata(
+  { params }: { params: { id: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const product: Product = await getProductById(params.id);
+  const previousImages = (await parent).openGraph?.images || [];
+  return {
+    title: product?.title.substring(0, 50),
+    description: product?.description.substring(0, 100),
+    openGraph: {
+      images: [product?.image,...previousImages],
+    },
+  };
+}
 const ProductDetails = async ({ params: { id } }: Props) => {
   const product: Product = await getProductById(id);
 
