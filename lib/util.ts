@@ -5,6 +5,7 @@ const Notification = {
   CHANGE_OF_STOCK: 'CHANGE_OF_STOCK',
   LOWEST_PRICE: 'LOWEST_PRICE',
   THRESHOLD_MET: 'THRESHOLD_MET',
+  DEFAULT:'DEFAULT',
 }
 
 const THRESHOLD_PERCENTAGE = 40;
@@ -94,33 +95,37 @@ export function getAveragePrice(priceList: PriceHistoryItem[]) {
 export const getEmailNotifType = (
   scrapedProduct: Product,
   currentProduct: Product
-) => {
+): { notification: keyof typeof Notification | "DEFAULT" , thresholdAmount: number | null } => {
   const lowestPrice = getLowestPrice(currentProduct.priceHistory);
+  let notification: keyof typeof Notification | "DEFAULT" = "DEFAULT";
+  let thresholdAmount: number | null = null;
 
   // Check if scrapedProduct.users is defined and not null
-  if (scrapedProduct.users) {
+  if (currentProduct.users) {
     // Iterate through each user in the scrapedProduct
-    for (const user of scrapedProduct.users) {
-      const userThreshold = user.tresholdAmount;
-
+    for (const user of currentProduct.users) {
+      const userThreshold = user.thresholdAmount;
       // Check if the current price is lower than the user's threshold
       if (scrapedProduct.currentPrice < userThreshold) {
-        return Notification.THRESHOLD_MET as keyof typeof Notification;
+        notification = 'THRESHOLD_MET'; // Adjusted to match the enum value
+        thresholdAmount = userThreshold;
+        return { notification, thresholdAmount };
       }
     }
+  } else {
+    console.log('No users found for this product');
   }
 
   // If no user's threshold is met, check for other notification types
   if (scrapedProduct.currentPrice < lowestPrice) {
-    return Notification.LOWEST_PRICE as keyof typeof Notification;
+    notification = 'LOWEST_PRICE'; // Adjusted to match the enum value
   }
   if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
-    return Notification.CHANGE_OF_STOCK as keyof typeof Notification;
+    notification = 'CHANGE_OF_STOCK'; // Adjusted to match the enum value
   }
 
-  return null;
+  return { notification, thresholdAmount };
 };
-
 
 
 export const formatNumber = (num: number = 0) => {

@@ -20,14 +20,12 @@ const search = () => {
       setSearchCompleted(false);
       setSearching(true);
       setProductsFound(false);
-      console.log("in handle search");
 
       // Assuming findProducts returns a stringified array of products
       const productsString = await findProducts(searchPrompt);
       const parsedProducts = JSON.parse(productsString);
 
       if (parsedProducts.length > 0) {
-        console.log("products found", parsedProducts.length);
         setProducts(parsedProducts);
         setProductsFound(true);
       }

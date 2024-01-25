@@ -15,7 +15,6 @@ import sendEmail from "@/app/defer/mailer";
 // a background function must be `async`
 async function cronJob() {
   const connection = await connectToDatabase();
-  console.log("db connection in cron", connection);
   if (connection) {
     const products = await Product.find({});
 
@@ -25,6 +24,7 @@ async function cronJob() {
     const updatedProducts = await Promise.all(
       products.map(async (currentProduct) => {
         // Scrape product
+
         const scrapedProduct = await scrapeProduct(currentProduct.url);
 
         if (!scrapedProduct) return;
@@ -53,6 +53,7 @@ async function cronJob() {
         }
 
         // Update Products in DB
+
         const updatedProduct = await Product.findOneAndUpdate(
           {
             url: product.url,
@@ -61,20 +62,21 @@ async function cronJob() {
         );
 
         // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
-          if (currentProduct.priceHistory.length > 0) {
-            const emailNotifType = getEmailNotifType(
-              scrapedProduct,
-              currentProduct
-            );
+        if (currentProduct.priceHistory.length > 0) {
+          const emailNotifType = getEmailNotifType(
+            scrapedProduct,
+            currentProduct
+          );
 
           if (emailNotifType && updatedProduct.users.length > 0) {
             const productInfo = {
               image: updatedProduct.image,
               title: updatedProduct.title,
               url: updatedProduct.url,
+              currency: updatedProduct.currency,
             };
             // Construct emailContent
-            const emailContent = generateEmailBody(productInfo, emailNotifType);
+            const emailContent = generateEmailBody(productInfo, emailNotifType.notification, emailNotifType.thresholdAmount);
             // Get array of user emails
             const userEmails = updatedProduct.users.map(
               (user: any) => user.email
