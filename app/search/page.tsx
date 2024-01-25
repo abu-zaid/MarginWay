@@ -21,11 +21,11 @@ const search = () => {
       setSearching(true);
       setProductsFound(false);
       console.log("in handle search");
-      
+
       // Assuming findProducts returns a stringified array of products
       const productsString = await findProducts(searchPrompt);
       const parsedProducts = JSON.parse(productsString);
-      
+
       if (parsedProducts.length > 0) {
         console.log("products found", parsedProducts.length);
         setProducts(parsedProducts);
@@ -68,9 +68,14 @@ const search = () => {
           </form>
         </div>
         {products.length > 0 && (
-          <div className="flex flex-col w-full align-middle items-center max-h-[85%] overflow-auto mt-2 scrollbar-hide px-2">
+          <div className="flex flex-wrap justify-center lg:justify-start w-full max-h-[85%] overflow-auto mt-2 scrollbar-hide px-2">
             {products?.map((product) => (
-              <SearchCard key={product._id} product={product} />
+              <div
+                className="w-full sm:w-1/2 lg:w-1/3 px-2 mb-4 max-w-3xl"
+                key={product._id}
+              >
+                <SearchCard product={product} />
+              </div>
             ))}
           </div>
         )}
@@ -79,7 +84,7 @@ const search = () => {
             No products found..
           </p>
         )}
-        {!searchCompleted && !searching &&(
+        {!searchCompleted && !searching && (
           <p className="text-center text-3xl mt-10 font-semibold text-slate-500">
             Search a product..
           </p>
