@@ -29,7 +29,7 @@ const ProductCard = ({ product }: Props) => {
             </p>
           )}
           {(product.isOutOfStock || product.currentPrice === 0) && (
-            <p className="text-red-500 text-lg font-semibold">
+            <p className="text-teal-800 text-lg font-semibold">
               <span>Out Of Stock!</span>
             </p>
           )}

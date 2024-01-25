@@ -17,7 +17,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "MarginWay",
+  title: "PriceSpy",
   description: "Track product prices effortlessly!",
 };
 

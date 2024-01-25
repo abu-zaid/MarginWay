@@ -27,7 +27,7 @@ export const generateEmailBody = (
       subject = `Welcome to Price Tracking for ${shortenedTitle}`;
       body = `
             <div>
-              <h2>Welcome to MarginWay 🚀</h2>
+              <h2>Welcome to PriceSpy 🚀</h2>
               <p>You are now tracking the price of ${product.title}.</p>
               <img src=${product.image} alt=${product.title} style="max-width: 100%;" />
               <p>Here's an example of how you'll receive updates:</p>

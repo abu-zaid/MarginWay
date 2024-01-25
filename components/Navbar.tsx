@@ -36,7 +36,7 @@ const Navbar = () => {
               alt="logo"
             />
             <p className="nav-logo font-poppins">
-              Margin<span className="text-red-600">Way</span>
+              Price<span className="text-teal-600">Spy</span>
             </p>
           </Link>
           <div className="flex item-center gap-5">

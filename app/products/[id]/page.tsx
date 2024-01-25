@@ -112,7 +112,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             )}
             {(product.isOutOfStock || product.currentPrice === 0) && (
               <div className="flex flex-col gap-2">
-                <p className="text-[34px] text-red-500 font-bold">
+                <p className="text-[34px] text-teal-800 font-bold">
                   Out of stock!
                 </p>
               </div>

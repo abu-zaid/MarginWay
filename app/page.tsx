@@ -14,16 +14,11 @@ const Home = async () => {
           <div className="flex flex-col justify-center">
             <p className="small-text">
               Smart Shopping Starts Here:
-              <Image
-                src="/assets/icons/arrow-right.svg"
-                alt="arrow-right"
-                width={16}
-                height={16}
-              />
+
             </p>
             <h3 className="head-text">
               Unleash the power of{" "}
-              <span className="text-red-600">MarginWay</span>
+              <span className="text-teal-600">PriceSpy</span>
             </h3>
             <p className="mt-6">
               Your personal price tracker. Monitor prices, get alerts, and save
