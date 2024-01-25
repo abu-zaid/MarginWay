@@ -21,10 +21,10 @@ const Home = async () => {
                 height={16}
               />
             </p>
-            <h1 className="head-text">
+            <h3 className="head-text">
               Unleash the power of{" "}
-              <span className="text-primary">MarginWay</span>
-            </h1>
+              <span className="text-red-600">MarginWay</span>
+            </h3>
             <p className="mt-6">
               Your personal price tracker. Monitor prices, get alerts, and save
               big on online shopping.
