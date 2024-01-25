@@ -40,6 +40,13 @@ export async function scrapeAndStoreProduct(productUrl: string) {
       return existingProduct._id;
     }
 
+    if (scrapedProduct.isOutOfStock) {
+      product = {
+        ...product,
+        priceHistory: existingProduct.priceHistory, // Keep the existing price history
+      };
+    }
+
     const newProduct = await Product.findOneAndUpdate(
       { url: scrapedProduct.url },
       product,

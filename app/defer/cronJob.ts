@@ -25,7 +25,6 @@ async function cronJob() {
     const updatedProducts = await Promise.all(
       products.map(async (currentProduct) => {
         // Scrape product
-        console.log("Current product in cron", currentProduct);
         const scrapedProduct = await scrapeProduct(currentProduct.url);
 
         if (!scrapedProduct) return;
@@ -37,13 +36,21 @@ async function cronJob() {
           },
         ];
 
-        const product = {
+        let product = {
           ...scrapedProduct,
           priceHistory: updatedPriceHistory,
           lowestPrice: getLowestPrice(updatedPriceHistory),
           highestPrice: getHighestPrice(updatedPriceHistory),
           averagePrice: getAveragePrice(updatedPriceHistory),
         };
+
+        // Check if product is out of stock, if so, don't update price history
+        if (scrapedProduct.isOutOfStock) {
+          product = {
+            ...product,
+            priceHistory: currentProduct.priceHistory, // Keep the existing price history
+          };
+        }
 
         // Update Products in DB
         const updatedProduct = await Product.findOneAndUpdate(
