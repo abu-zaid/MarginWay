@@ -50,22 +50,6 @@ const Navbar = () => {
               className="object-contain"
             />
             </Link>
-            <Image
-              src={navIcons[1].src}
-              key={navIcons[1].alt}
-              alt={navIcons[1].alt}
-              width={28}
-              height={28}
-              className="object-contain"
-            />
-            <Image
-              src={navIcons[2].src}
-              key={navIcons[2].alt}
-              alt={navIcons[2].alt}
-              width={28}
-              height={28}
-              className="object-contain"
-            />
           </div>
         </nav>
       </header>
