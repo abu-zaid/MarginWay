@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 const space_grotest = Space_Grotesk({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <main className="max-w-10xl mx-auto">
           <Navbar />
           {children}
+          <GoogleAnalytics trackingID="G-2JJMRDRHML" />
           <Analytics />
           <SpeedInsights />
         </main>
