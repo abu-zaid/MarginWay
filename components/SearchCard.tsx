@@ -1,3 +1,4 @@
+import { getWebsiteFromURL } from "@/lib/util";
 import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +7,7 @@ interface Props {
   product: Product;
 }
 const SearchCard = ({ product }: Props) => {
+  const websiteName = getWebsiteFromURL(product.url);
   return (
     <Link href={`/products/${product._id}`}>
       <div className="w-3xl max-w-3xl rounded-lg cursor-pointer">
@@ -26,25 +28,29 @@ const SearchCard = ({ product }: Props) => {
               </h3>
               <p className="text-sm text-gray-400">{product.category}</p>
             </div>
-            {(!product.isOutOfStock && product.currentPrice != 0) && (
-              <div className="flex gap-2 items-baseline justify-end">
-                <p className="line-through text-sm text-teal-700">
-                  <span>{product.currency}</span>
-                  {product.originalPrice.toString().slice(0, 7)}
-                </p>
-                <p>
-                  <span>{product.currency}</span>
-                  {product.currentPrice}
-                </p>
-              </div>
-            )}
-            {(product.isOutOfStock || product.currentPrice === 0)  && (
-              <div className="flex gap-2 items-baseline justify-end">
-                <p className="text-teal-700 text-sm font-semibold">
-                  Out of Stock!
-                </p>
-              </div>
-            )}
+
+            <div className="flex gap-2 justify-between">
+              <p className="text-xs text-slate-200 font-medium bg-slate-400 px-1 py-1 rounded-lg">{websiteName}</p>
+              {!product.isOutOfStock && product.currentPrice != 0 && (
+                <div className="flex gap-2 items-baseline justify-end">
+                  <p className="line-through text-sm text-teal-700">
+                    <span>{product.currency}</span>
+                    {product.originalPrice.toString().slice(0, 7)}
+                  </p>
+                  <p>
+                    <span>{product.currency}</span>
+                    {product.currentPrice}
+                  </p>
+                </div>
+              )}
+              {(product.isOutOfStock || product.currentPrice === 0) && (
+                <div className="flex gap-2 items-baseline justify-end">
+                  <p className="text-teal-700 text-sm font-semibold">
+                    Out of Stock!
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import { PriceHistoryItem, Product } from "@/types";
 
 const Notification = {
-  WELCOME: 'WELCOME',
-  CHANGE_OF_STOCK: 'CHANGE_OF_STOCK',
-  LOWEST_PRICE: 'LOWEST_PRICE',
-  THRESHOLD_MET: 'THRESHOLD_MET',
-  DEFAULT:'DEFAULT',
-}
+  WELCOME: "WELCOME",
+  CHANGE_OF_STOCK: "CHANGE_OF_STOCK",
+  LOWEST_PRICE: "LOWEST_PRICE",
+  THRESHOLD_MET: "THRESHOLD_MET",
+  DEFAULT: "DEFAULT",
+};
 
 const THRESHOLD_PERCENTAGE = 40;
 
@@ -15,20 +15,20 @@ export function extractPrice(...elements: any) {
   for (const element of elements) {
     const priceText = element.text().trim();
 
-    if(priceText) {
-      const cleanPrice = priceText.replace(/[^\d+]/g, '');
-     
-      let firstPrice; 
+    if (priceText) {
+      const cleanPrice = priceText.replace(/[^\d+]/g, "");
+
+      let firstPrice;
 
       if (cleanPrice) {
         firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
-      } 
+      }
 
       return firstPrice || cleanPrice;
     }
   }
 
-  return '';
+  return "";
 }
 
 // Extracts and returns the currency symbol from an element.
@@ -73,7 +73,6 @@ export function getHighestPrice(priceList: PriceHistoryItem[]) {
 }
 
 export function getLowestPrice(priceList: PriceHistoryItem[]) {
-
   let lowestPrice = priceList[0];
 
   for (let i = 0; i < priceList.length; i++) {
@@ -95,7 +94,10 @@ export function getAveragePrice(priceList: PriceHistoryItem[]) {
 export const getEmailNotifType = (
   scrapedProduct: Product,
   currentProduct: Product
-): { notification: keyof typeof Notification | "DEFAULT" , thresholdAmount: number | null } => {
+): {
+  notification: keyof typeof Notification | "DEFAULT";
+  thresholdAmount: number | null;
+} => {
   const lowestPrice = getLowestPrice(currentProduct.priceHistory);
   let notification: keyof typeof Notification | "DEFAULT" = "DEFAULT";
   let thresholdAmount: number | null = null;
@@ -107,26 +109,25 @@ export const getEmailNotifType = (
       const userThreshold = user.thresholdAmount;
       // Check if the current price is lower than the user's threshold
       if (scrapedProduct.currentPrice < userThreshold) {
-        notification = 'THRESHOLD_MET'; // Adjusted to match the enum value
+        notification = "THRESHOLD_MET"; // Adjusted to match the enum value
         thresholdAmount = userThreshold;
         return { notification, thresholdAmount };
       }
     }
   } else {
-    console.log('No users found for this product');
+    console.log("No users found for this product");
   }
 
   // If no user's threshold is met, check for other notification types
   if (scrapedProduct.currentPrice < lowestPrice) {
-    notification = 'LOWEST_PRICE'; // Adjusted to match the enum value
+    notification = "LOWEST_PRICE"; // Adjusted to match the enum value
   }
   if (!scrapedProduct.isOutOfStock && currentProduct.isOutOfStock) {
-    notification = 'CHANGE_OF_STOCK'; // Adjusted to match the enum value
+    notification = "CHANGE_OF_STOCK"; // Adjusted to match the enum value
   }
 
   return { notification, thresholdAmount };
 };
-
 
 export const formatNumber = (num: number = 0) => {
   return num.toLocaleString(undefined, {
@@ -135,3 +136,28 @@ export const formatNumber = (num: number = 0) => {
   });
 };
 
+export const getWebsiteFromURL = (url: string): string | null => {
+  try {
+    const parsedUrl = new URL(url);
+    const hostName = parsedUrl.hostname;
+    const sites: Record<string, string> = {
+      amazon: "Amazon",
+      flipkart: "Flipkart",
+      myntra: "Myntra",
+      ajio: "Ajio",
+      bigbasket: "Bigbasket",
+      lenskart: "Lenskart",
+    };
+
+    for (const site in sites) {
+      if (hostName.includes(site)) {
+        return sites[site];
+      }
+    }
+
+    return "Not found"; // If the hostname doesn't match any known site
+  } catch (error) {
+    console.error("Error parsing URL:", error);
+    return "Not found"; // Return null in case of any errors
+  }
+};

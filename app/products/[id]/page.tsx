@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
-import { formatNumber } from "@/lib/util";
+import { formatNumber, getWebsiteFromURL } from "@/lib/util";
 import { Product } from "@/types";
 import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
@@ -25,7 +25,7 @@ export async function generateMetadata(
     title: product?.title.substring(0, 50),
     description: product?.description.substring(0, 100),
     openGraph: {
-      images: [product?.image,...previousImages],
+      images: [product?.image, ...previousImages],
     },
   };
 }
@@ -33,7 +33,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
   const product: Product = await getProductById(id);
 
   if (!product) redirect("/");
-
+  const websiteName = getWebsiteFromURL(product.url);
   const similarProducts = await getSimilarProducts(id);
 
   return (
@@ -56,13 +56,18 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 {product.title}
               </p>
 
-              <Link
-                href={product.url}
-                target="_blank"
-                className="text-base text-black opacity-50"
-              >
-                Visit Product
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href={product.url}
+                  target="_blank"
+                  className="text-base text-black opacity-50"
+                >
+                  Visit Product
+                </Link>
+                <p className="text-md text-slate-200 font-medium bg-slate-400 px-2 py-1 rounded-lg">
+                  {websiteName}
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">

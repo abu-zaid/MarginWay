@@ -10,16 +10,26 @@ const isValidLink = (url: string) => {
   try {
     const parsedUrl = new URL(url);
     const hostName = parsedUrl.hostname;
-    if (hostName.includes("amazon.") || hostName.includes("amazon.")) {
+    if (
+      hostName.includes("amazon") ||
+      hostName.includes("myntra") ||
+      hostName.includes("ajio") ||
+      hostName.includes("flipkart") ||
+      hostName.includes("bigbasket") ||
+      hostName.includes("meesho") ||
+      hostName.includes("shopclues") ||
+      hostName.includes("lenskart") ||
+      hostName.includes("croma")
+    ) {
       return true;
-    } else if (hostName.includes("myntra.") || hostName.includes("myntra.com")) {
-      return true;
+    } else {
+      console.log("Invalid URL provided!");
+      return false;
     }
   } catch (error) {
+    console.log("Error while validating URL: ", error);
     return false;
-    console.log(error);
   }
-  return false;
 };
 const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState("");
@@ -51,7 +61,7 @@ const Searchbar = () => {
         value={searchPrompt}
         onChange={(e) => setSearchPrompt(e.target.value)}
         placeholder="Enter Product Link..."
-        className="searchbar text-[16px]"
+        className="searchbar"
       />
       <button
         type="submit"

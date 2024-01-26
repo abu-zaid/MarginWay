@@ -1,3 +1,4 @@
+import { getWebsiteFromURL } from "@/lib/util";
 import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,7 @@ interface Props {
   product: Product;
 }
 const ProductCard = ({ product }: Props) => {
+  const websiteName = getWebsiteFromURL(product.url);
   return (
     <Link href={`/products/${product._id}`} className="product-card">
       <div className="product-card_img-container">
@@ -21,7 +23,14 @@ const ProductCard = ({ product }: Props) => {
       <div className="flex flex-col gap-3">
         <h3 className="product-title">{product.title}</h3>
         <div className="flex justify-between">
-          <p className="text-black opacity-50 capitalize">{product.category}</p>
+          <div className="flex gap-2 justify-start items-end">
+            <p className="text-xs text-slate-200 font-medium bg-slate-400 px-2 py-1 rounded-lg">
+              {websiteName}
+            </p>
+            <p className="text-black text-sm opacity-50 capitalize">
+              {product.category}
+            </p>
+          </div>
           {!product.isOutOfStock && product.currentPrice != 0 && (
             <p className="text-black text-lg font-semibold">
               <span>{product.currency}</span>
