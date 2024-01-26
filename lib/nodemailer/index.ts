@@ -8,6 +8,7 @@ export const Notification = {
   CHANGE_OF_STOCK: "CHANGE_OF_STOCK",
   LOWEST_PRICE: "LOWEST_PRICE",
   THRESHOLD_MET: "THRESHOLD_MET",
+  DEFAULT:"DEFAULT"
 };
 
 export const generateEmailBody = (
@@ -72,6 +73,8 @@ export const generateEmailBody = (
               </div>
             `;
       break;
+      case Notification.DEFAULT:
+        break;
 
     default:
       throw new Error("Invalid notification type.");

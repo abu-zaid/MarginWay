@@ -29,7 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-2JJMRDRHML"
@@ -49,7 +52,7 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563630042127627"
         ></script>
-
+      </head>
       <body className={poppins.className}>
         <main className="max-w-10xl mx-auto">
           <Navbar />
