@@ -49,15 +49,7 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563630042127627"
         ></script>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-        ></script>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-2JJMRDRHML"
-        ></script>
-      </head>
+
       <body className={poppins.className}>
         <main className="max-w-10xl mx-auto">
           <Navbar />
