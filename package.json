@@ -1,6 +1,6 @@
 {
-  "name": "pricewise",
-  "version": "0.1.0",
+  "name": "pricespy",
+  "version": "0.1.1",
   "engines": {
     "node": "18.x"
   },
