@@ -17,7 +17,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
     await connectToDatabase();
 
     const scrapedProduct = await scrapeProduct(productUrl);
-
+    
     if (!scrapedProduct) return;
 
     let product = scrapedProduct;
@@ -58,7 +58,6 @@ export async function scrapeAndStoreProduct(productUrl: string) {
   } catch (error: any) {
     throw new Error(`Failed to create/update product: ${error.message}`);
   }
-  return "Not found";
 }
 
 export async function getProductById(productId: string) {

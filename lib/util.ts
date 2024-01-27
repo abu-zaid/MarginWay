@@ -32,9 +32,13 @@ export function extractPrice(...elements: any) {
 }
 
 // Extracts and returns the currency symbol from an element.
-export function extractCurrency(element: any) {
-  const currencyText = element.text().trim().slice(0, 1);
-  return currencyText ? currencyText : "";
+export function extractCurrency(...elements: any) {
+ 
+  for (const element of elements) {
+     const currencyText = element.text().trim().slice(0, 1);
+     return currencyText;
+  }
+  return "";
 }
 
 // Extracts description from two possible elements from amazon
@@ -161,3 +165,21 @@ export const getWebsiteFromURL = (url: string): string | null => {
     return "Not found"; // Return null in case of any errors
   }
 };
+
+export const getDiscountRate = (currentPrice : number, originalPrice : number) => {
+  // Calculate the discount rate
+  const discountRate = ((originalPrice - currentPrice) / originalPrice) * 100;
+
+  // Return the discount rate rounded to 2 decimal places
+  return parseInt(discountRate.toFixed(2));
+};
+
+export function getFlipkartCategory(parentDiv:any) {
+  // Find all child div elements with class "_3GIHBu" within the parent div
+  const childDivs = parentDiv.find('._3GIHBu');
+
+  // Extract the text from the second div (index 1, since indexing starts from 0)
+  const categoryText = childDivs.eq(1).text().trim();
+
+  return categoryText;
+}
