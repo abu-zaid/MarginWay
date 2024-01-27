@@ -4,7 +4,7 @@ import puppeteer, { Browser } from "puppeteer";
 const getHTMLFromURL = async (urlToScrape: string) => {
   try {
     const browser: Browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-dev-shm-usage"],
     });
     const page = await browser.newPage();
