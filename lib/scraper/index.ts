@@ -51,9 +51,7 @@ export async function scrapeProduct(url: string) {
         "{}";
 
       const imageUrls = Object.keys(JSON.parse(images));
-      const currency = extractCurrency(
-        $(".a-price-symbol")
-      );
+      const currency = extractCurrency($(".a-price-symbol"));
       const discountRate = $(".savingsPercentage").text().replace(/[-%]/g, "");
       const description = extractDescription($);
 
@@ -77,6 +75,7 @@ export async function scrapeProduct(url: string) {
         highestPrice: Number(originalPrice),
         averagePrice: Number(currentPrice),
       };
+      console.log(data);
 
       return data;
     } else if (websiteName === "Flipkart") {
@@ -84,30 +83,38 @@ export async function scrapeProduct(url: string) {
       const currentPrice = extractPrice($("._30jeq3._16Jk6d"));
       const originalPrice = extractPrice($("._3I9_wc._2p6lqe"));
       const outOfStock = false;
-      const image = $('.CXW8mj._3nMexc img').attr('src') || '';
-      const category = getFlipkartCategory($('._1MR4o5'));
+      const image = $(".CXW8mj._3nMexc img").attr("src") || "";
+      const category = getFlipkartCategory($("._1MR4o5"));
       const description = $("._2418kt").text();
       const rating = $("._2d4LTz").text();
       const data = {
         url,
         title,
-        currentPrice: Number(currentPrice) == 0 ? Number(originalPrice) : Number(currentPrice),
-        originalPrice: Number(originalPrice) == 0 ? Number(currentPrice) : Number(originalPrice),
+        currentPrice:
+          Number(currentPrice) == 0
+            ? Number(originalPrice)
+            : Number(currentPrice),
+        originalPrice:
+          Number(originalPrice) == 0
+            ? Number(currentPrice)
+            : Number(originalPrice),
         outOfStock,
         currency: "₹",
         image,
         priceHistory: [],
-        discountRate: getDiscountRate(parseInt(currentPrice),parseInt(originalPrice)) || 0,
+        discountRate:
+          getDiscountRate(parseInt(currentPrice), parseInt(originalPrice)) || 0,
         category,
         reviewsCount: 0,
         rating: parseFloat(rating) || 0,
-        isOutOfStock: parseInt(currentPrice)==0 ? true : false,
+        isOutOfStock: parseInt(currentPrice) == 0 ? true : false,
         description,
         stars: 0,
         lowestPrice: Number(currentPrice),
         highestPrice: Number(originalPrice),
         averagePrice: Number(currentPrice),
       };
+      console.log(data);
       return data;
     }
   } catch (error: any) {
