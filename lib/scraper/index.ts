@@ -16,6 +16,7 @@ export async function scrapeProduct(url: string) {
   try {
     // Fetch the product page
     const response = await getHTMLFromURL(url);
+    console.log('resonse', response);
     const websiteName = getWebsiteFromURL(url);
     const $ = cheerio.load(response);
 

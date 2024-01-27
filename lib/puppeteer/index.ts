@@ -1,14 +1,13 @@
 "use server";
-import puppeteer, { Browser } from "puppeteer";
+const { chromium } = require("playwright");
 
 const getHTMLFromURL = async (urlToScrape: string) => {
   try {
-    const browser: Browser = await puppeteer.launch({
+    const browser = await chromium.launch({
       headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
     });
     const page = await browser.newPage();
-    await page.goto(urlToScrape, { waitUntil: "domcontentloaded" });
+    await page.goto(urlToScrape);
     const elementContent = await page.evaluate(() => document.body.innerHTML);
     browser.close();
     return elementContent;
