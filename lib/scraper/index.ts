@@ -16,7 +16,6 @@ export async function scrapeProduct(url: string) {
   try {
     // Fetch the product page
     const response = await getHTMLFromURL(url);
-    console.log('resonse', response);
     const websiteName = getWebsiteFromURL(url);
     const $ = cheerio.load(response);
 
@@ -76,8 +75,6 @@ export async function scrapeProduct(url: string) {
         highestPrice: Number(originalPrice),
         averagePrice: Number(currentPrice),
       };
-      console.log(data);
-
       return data;
     } else if (websiteName === "Flipkart") {
       const title = $(".yhB1nd").text();
@@ -115,7 +112,6 @@ export async function scrapeProduct(url: string) {
         highestPrice: Number(originalPrice),
         averagePrice: Number(currentPrice),
       };
-      console.log(data);
       return data;
     }
   } catch (error: any) {

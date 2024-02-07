@@ -14,6 +14,7 @@ const getHTMLFromURL = async (urlToScrape: string) => {
     const page = await browser.newPage();
     await page.goto(urlToScrape);
     const elementContent = await page.evaluate(() => document.body.innerHTML);
+    console.log('elementContent' , elementContent);
     browser.close();
     return elementContent;
   } catch (error) {
