@@ -1,20 +1,21 @@
 "use server";
-const chromium = require('@sparticuz/chromium-min');
-const puppeteer = require('puppeteer');
-
+const puppeteer = require('puppeteer-extra') 
+const pluginStealth = require('puppeteer-extra-plugin-stealth') 
+const {executablePath} = require('puppeteer'); 
+puppeteer.use(pluginStealth()) 
 const getHTMLFromURL = async (urlToScrape: string) => {
+
   try {
     const browser = await puppeteer.launch({
-        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
-        defaultViewport: chromium.defaultViewport,
-        headless: chromium.headless,
-        ignoreHTTPSErrors: true,
-      });
-      
+      headless: true,
+      executablePath: executablePath() 
+    });
+
     const page = await browser.newPage();
+
     await page.goto(urlToScrape);
     const elementContent = await page.evaluate(() => document.body.innerHTML);
-    console.log('elementContent' , elementContent);
+    console.log("elementContent", elementContent);
     browser.close();
     return elementContent;
   } catch (error) {
